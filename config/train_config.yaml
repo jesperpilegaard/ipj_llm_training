@@ -1,0 +1,6 @@
+epochs: 3
+batch_size: 16
+learning_rate: 2e-5
+dataset: "imdb"
+max_length: 512
+metric: "accuracy"

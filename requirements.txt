@@ -1,0 +1,4 @@
+transformers==4.37.0
+datasets==2.18.0
+torch==2.0.0
+PyYAML==6.0
