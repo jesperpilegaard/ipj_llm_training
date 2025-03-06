@@ -1,6 +1,6 @@
-epochs: 3
-batch_size: 16
-learning_rate: 2e-5
-dataset: "imdb"
-max_length: 512
-metric: "accuracy"
+dataset: "imdb"  # Det datasæt, du bruger (kan være et andet datasæt)
+dataset_size: 1000  # Brug kun de første 1000 samples til test
+max_length: 128  # Maksimal længde på inputsekvenser
+epochs: 1  # Antal træningsepoker
+batch_size: 8  # Batch-størrelse
+learning_rate: 2e-5  # Læringsrate

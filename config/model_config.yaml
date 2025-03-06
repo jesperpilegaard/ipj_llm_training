@@ -1,2 +1,2 @@
-model_name: "bert-base-uncased"
-tokenizer_name: "bert-base-uncased"
+model_name: "distilbert-base-uncased"
+tokenizer_name: "distilbert-base-uncased"

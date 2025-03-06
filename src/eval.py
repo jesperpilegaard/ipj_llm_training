@@ -1,22 +1,32 @@
-import evaluate
 import torch
+import evaluate
 import pandas as pd
 
-def compute_metrics(predictions, labels):
+# Funktion til at beregne metrikker som accuracy og f1
+def compute_metrics(p):
     accuracy = evaluate.load("accuracy")
     f1 = evaluate.load("f1")
 
-    preds = torch.argmax(torch.tensor(predictions), dim=1).numpy()
+    # Konverter logits til forudsigelser (vælg den højeste værdi)
+    predictions = torch.argmax(torch.tensor(p.predictions), dim=-1).numpy()  
+    labels = p.label_ids  # Sande labels
 
-    results = {
-        "accuracy": accuracy.compute(predictions=preds, references=labels)["accuracy"],
-        "f1": f1.compute(predictions=preds, references=labels, average="weighted")["f1"]
+    # Beregn metrikkerne
+    accuracy_score = accuracy.compute(predictions=predictions, references=labels)
+    f1_score = f1.compute(predictions=predictions, references=labels, average='weighted')
+
+    return {
+        "accuracy": accuracy_score["accuracy"],  # Returner accuracy
+        "f1": f1_score["f1"],  # Returner F1-score
     }
-    
-    return results
 
+# Funktion til at gemme resultater til CSV
 def save_results(results, log_path="experiments/logs.csv"):
     df = pd.DataFrame([results])
+    # Tjek om der er data, før de gemmes
+    print(f"Gemmer resultater: {results}")
     df.to_csv(log_path, mode='a', header=not open(log_path).read(1), index=False)
     print(f"Resultater gemt i {log_path}")
+
+
 
